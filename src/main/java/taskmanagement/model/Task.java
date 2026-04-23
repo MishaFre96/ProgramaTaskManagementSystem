@@ -14,7 +14,11 @@ import java.time.LocalDateTime;
 @Table(name = "tasks")
 public class Task {
 
-    public static final String STATUS_CREATED = "CREATED";
+    public enum TaskStatus {
+        CREATED,
+        IN_PROGRESS,
+        COMPLETED
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +31,10 @@ public class Task {
     private String description;
 
     @Column(nullable = false)
-    private String status;
+    private String assignee;
+
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
 
     @Column(nullable = false)
     private String author;
@@ -36,7 +43,7 @@ public class Task {
     private LocalDateTime createdAt;
 
     public Task() {
-        this.status = STATUS_CREATED;
+        this.status = TaskStatus.CREATED;
     }
 
     public Long getId() {
@@ -59,8 +66,20 @@ public class Task {
         this.description = description;
     }
 
-    public String getStatus() {
+    public String getAssignee() {
+        return assignee;
+    }
+
+    public void setAssignee(String assignee) {
+        this.assignee = assignee;
+    }
+
+    public TaskStatus getStatus() {
         return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
     }
 
     public String getAuthor() {

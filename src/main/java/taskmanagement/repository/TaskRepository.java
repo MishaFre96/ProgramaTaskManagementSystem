@@ -19,4 +19,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     // Obtener todas las tareas ordenadas por id de más reciente a más antigua
     List<Task> findByAuthorIgnoreCaseOrderByCreatedAtDesc(String author);
+
+    // Obtener todas las tareas odenadas por asignados
+    List<Task> findByAssigneeIgnoreCaseOrderByCreatedAtDesc(String assignee);
 }
